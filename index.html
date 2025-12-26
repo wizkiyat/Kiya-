@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kiya — Terminal</title>
+  <title>Kiya — Plus(+)</title>
 
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -81,14 +81,14 @@
     <div class="dot"></div><div class="dot"></div><div class="dot"></div>
     <!-- Logo + Name -->
     <img src="logo2.png" alt="Kiya+ Logo" class="logo">
-    <div class="title">kiya+portfolio — zsh</div>
+    <div class="title">@KiyaplusX — Owner</div>
   </div>
 
   <div class="content" id="terminal">
 
     <!-- intro -->
     <div class="line">
-      <span class="prompt">kiya+portfolio:~$</span>
+      <span class="prompt">@KiyaplusX :~$</span>
       <span class="cmd">who am i</span>
     </div>
 
@@ -97,7 +97,7 @@
     </div>
     
     <div class="line">
-      <span class="prompt">kiya+portfolio:~$</span>
+      <span class="prompt">@KiyaplusX :~$</span>
       <span class="cmd">Posts</span>
     </div>
 
@@ -105,13 +105,15 @@
       <span class="file" onclick="openPost('post1')"><b>1.</b> Why I like minimal...</span>  
       <span class="file" onclick="openPost('post2')"><b>2.</b> Learning frontend...</span>  
       <span class="file" onclick="openPost('post3')"><b>3.</b> Building in public</span>
+      <span class="file" onclick="openPost('post4')"><b>4.</b> Eyu's Terminal...</span>
+      <span class="file" onclick="openPost('post5')"><b>5.</b> Ethiopia...</span>
     </div>
 
     <div id="posts"></div>
     <div id="iam"></div>
 
     <div class="line">
-      <span class="prompt">kiya+portfolio:~$</span>
+      <span class="prompt">@KiyaplusX :~$</span>
       <span class="cursor"></span>
     </div>
 
@@ -133,7 +135,7 @@
   };
   const posts = {
     post1: `Title: Why I like minimal design
-Date: 2025-01-02
+Date: 2025-12-26
 
 I don’t hate colors.
 I just think simplicity forces you to think.
@@ -142,7 +144,7 @@ When everything is loud,
 nothing is clear.`,
 
     post2: `Title: Learning frontend with only a phone
-Date: 2025-01-10
+Date: 2025-12-26
 
 No laptop. No excuses.
 
@@ -150,10 +152,40 @@ If you can think clearly,
 you can build anywhere.`,
 
     post3: `Title: Building in public
-Date: 2025-01-18
+Date: 2025-12-26
 
 Sharing unfinished work is scary.
-But progress loves witnesses.`
+But progress loves witnesses.`,
+
+    post4: `Title: Eyu's Terminal...
+Date: 2025-12-26
+
+Here’s a glimpse of my work....
+
+<img src="img1.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
+
+The first one is Christmas themed logo for Christmas 🎄
+
+<img src="img2.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
+
+The second one is the Original logo
+
+<img src="img3.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
+
+-> <b>Eyu's Terminal</b> V1.0
+-> Left Face: <b>E</b> Brand initial 
+-> Right Face: Terminal prompt symbol [>_]
+-> Top Face: Solid, empty workspace
+-> Theme: Minimal | Black & White | Developer-focused.
+
+    <b>status</b>: Ready for commands...`,
+
+    post5: `Title: Ethiopia...
+Date: 2025-12-26
+
+Here’s a glimpse of my work...:
+
+<img src="img4.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">`,
   };
 
   function typeText(container, text, speed = 20) {
@@ -174,8 +206,8 @@ But progress loves witnesses.`
     // Add command line first
     postsContainer.innerHTML = `
       <div class="line">
-        <span class="prompt">kiya+portfolio:~$</span>
-        <span class="cmd">cat ${id}.txt</span>
+        <span class="prompt">@KiyaplusX :~$</span>
+        <span class="cmd">Me ${id}.txt</span>
       </div>
       <div class="line output" id="typing-output"></div>
     `;
@@ -188,8 +220,8 @@ But progress loves witnesses.`
     // Add command line first
     postsContainer.innerHTML = `
       <div class="line">
-        <span class="prompt">kiya+portfolio:~$</span>
-        <span class="cmd">cat ${id}.txt</span>
+        <span class="prompt">@KiyaplusX :~$</span>
+        <span class="cmd">Plus(+) ${id}.txt</span>
       </div>
       <div class="line output" id="typing-output"></div>
     `;
@@ -197,6 +229,26 @@ But progress loves witnesses.`
     const output = document.getElementById("typing-output");
     typeText(output, posts[id]);
   }
+
+  function typeText(container, text, speed = 20) {
+  // Check if text contains <img>, if yes, skip typing and render HTML
+  if (text.includes('<img')) {
+    container.innerHTML = text;
+    return;
+  }
+
+  container.innerHTML = '';
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      container.innerHTML += text[i];
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+  }
+  
 </script>
 
 </body>
