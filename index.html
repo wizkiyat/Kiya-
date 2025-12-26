@@ -60,6 +60,16 @@
       vertical-align: middle;
       
     }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px dashed #444;
+    }
+
+    a:hover {
+      border-bottom-color: #fff;
+    }
     
   </style>
 </head>
@@ -83,18 +93,18 @@
     </div>
 
     <div class="line output">
-      <span class="file" onclick="openIam('iam')">iam.txt</span>
+      <span class="file" onclick="openIam('iam')">About me...</span>
     </div>
     
     <div class="line">
       <span class="prompt">kiya+portfolio:~$</span>
-      <span class="cmd">ls posts</span>
+      <span class="cmd">Posts</span>
     </div>
 
     <div class="line output">
-      <span class="file" onclick="openPost('post1')">post-01.txt</span>  
-      <span class="file" onclick="openPost('post2')">post-02.txt</span>  
-      <span class="file" onclick="openPost('post3')">post-03.txt</span>
+      <span class="file" onclick="openPost('post1')"><b>1.</b> Why I like minimal...</span>  
+      <span class="file" onclick="openPost('post2')"><b>2.</b> Learning frontend...</span>  
+      <span class="file" onclick="openPost('post3')"><b>3.</b> Building in public</span>
     </div>
 
     <div id="posts"></div>
@@ -103,6 +113,15 @@
     <div class="line">
       <span class="prompt">kiya+portfolio:~$</span>
       <span class="cursor"></span>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="line" style="margin-top: 40px; border-top: 1px solid #333; padding-top: 12px;">
+      <span class="prompt">Contact me:</span>
+      <span class="output">
+        <a href="https://t.me/KiyaplusX" target="_blank">Telegram</a> ·
+        <a href="mailto:kiyatesfaye82@gmail.com">Email</a>
+      </span>
     </div>
 
   </div>
@@ -156,7 +175,7 @@ But progress loves witnesses.`
     postsContainer.innerHTML = `
       <div class="line">
         <span class="prompt">kiya+portfolio:~$</span>
-        <sapn class="cmd">cat ${id}.txt</span>
+        <span class="cmd">cat ${id}.txt</span>
       </div>
       <div class="line output" id="typing-output"></div>
     `;
