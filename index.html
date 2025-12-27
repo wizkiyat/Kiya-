@@ -133,6 +133,7 @@
   const iam = {
     iam: 'Kiya Tesfaye — Frontend Developer & Designer'
   };
+
   const posts = {
     post1: `Title: Why I like minimal design
 Date: 2025-12-26
@@ -162,126 +163,82 @@ Date: 2025-12-26
 
 Here’s a glimpse of my work....
 
-<img src="img1.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
+<img src="img1.jpg" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
 
-The first one is Christmas themed logo for Christmas 🎄
-
-<img src="img2.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
-
-The second one is the Original logo
-
-<img src="img3.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">
-
--> <b>Eyu's Terminal</b> V1.0
--> Left Face: <b>E</b> Brand initial 
--> Right Face: Terminal prompt symbol [>_]
--> Top Face: Solid, empty workspace
--> Theme: Minimal | Black & White | Developer-focused.
-
-    <b>status</b>: Ready for commands...`,
+-> Eyu's Terminal V1.0
+status: Ready for commands...`,
 
     post5: `Title: Ethiopia...
 Date: 2025-12-26
 
-Here’s a glimpse of my work...:
-
-<img src="img4.jpg" alt="My Workspace" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">`,
+<img src="img4.jpg" style="max-width:100%; margin-top:10px; border:1px solid #333; border-radius:6px;">`
   };
 
   function typeText(container, text, speed = 20) {
-    container.innerHTML = '';
+    if (text.includes("<img")) {
+      container.innerHTML = text;
+      return;
+    }
+
+    container.innerHTML = "";
     let i = 0;
-    function type() {
+    (function type() {
       if (i < text.length) {
-        container.innerHTML += text[i];
-        i++;
+        container.innerHTML += text[i++];
         setTimeout(type, speed);
       }
-    }
-    type();
+    })();
   }
 
   function openIam(id) {
-    const postsContainer = document.getElementById("iam");
-    // Add command line first
-    postsContainer.innerHTML = `
+    const box = document.getElementById("iam");
+    box.innerHTML = `
       <div class="line">
         <span class="prompt">@KiyaplusX :~$</span>
-        <span class="cmd">Me ${id}.txt</span>
+        <span class="cmd">cat ${id}.txt</span>
       </div>
       <div class="line output" id="typing-output"></div>
     `;
-    // Run typing animation 
-    const output = document.getElementById("typing-output");
-    typeText(output, iam[id]);
+    typeText(document.getElementById("typing-output"), iam[id]);
   }
+
   function openPost(id) {
-    // update URL
     window.location.hash = id;
-    
-    const postsContainer = document.getElementById("posts");
-    // Add command line first
-    postsContainer.innerHTML = `
+
+    const box = document.getElementById("posts");
+    box.innerHTML = `
       <div class="line">
         <span class="prompt">@KiyaplusX :~$</span>
-        <span class="cmd">Plus(+) ${id}.txt</span>
+        <span class="cmd">cat ${id}.txt</span>
       </div>
+
       <div class="line output" id="typing-output"></div>
 
       <div class="line output" style="margin-top:12px;">
-        <span class="file" onclick="copyPostLink('$ {id}')">[ copy link ]</span>
+        <span class="file" onclick="copyPostLink('${id}')">[ copy link ]</span>
       </div>
     `;
-    // Run typing animation
-    const output = document.getElementById("typing-output");
-    typeText(output, posts[id]);
+
+    typeText(document.getElementById("typing-output"), posts[id]);
   }
 
-  function typeText(container, text, speed = 20) {
-  // Check if text contains <img>, if yes, skip typing and render HTML
-  if (text.includes('<img')) {
-    container.innerHTML = text;
-    return;
-  }
+  function copyPostLink(id) {
+    const url = `${window.location.origin}${window.location.pathname}#${id}`;
+    navigator.clipboard.writeText(url);
 
-  container.innerHTML = '';
-  let i = 0;
-  function type() {
-    if (i < text.length) {
-      container.innerHTML += text[i];
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-  type();
+    document
+      .getElementById("posts")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="line output">Link copied ✔</div>`
+      );
   }
 
   function openFromHash() {
-    const id = window.location.hash.replace("#", "");
-    if (posts[id]) {
-      openPost(id);
-    }
+    const id = location.hash.replace("#", "");
+    if (posts[id]) openPost(id);
   }
 
   window.addEventListener("load", openFromHash);
   window.addEventListener("hashchange", openFromHash);
-
-  function copyPostLink(id) {
-    const url = `$ {window.location.origim}$
-    {window.location.pathname}#${id}`;
-
-    navigator.clipboard.writeText(url);
-
-    const terminal = document.getElementById("posts");
-
-    terminal.insertAdjecentHTML("beforeend", `
-       <div class="line output">
-         Link copied 
-       </div>
-    `);
-  }
-  
 </script>
-
-</body>
-</html>
