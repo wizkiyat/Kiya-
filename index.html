@@ -189,17 +189,25 @@ Here’s a glimpse of my work...:
   };
 
   function typeText(container, text, speed = 20) {
-    container.innerHTML = '';
-    let i = 0;
-    function type() {
-      if (i < text.length) {
-        container.innerHTML += text[i];
-        i++;
-        setTimeout(type, speed);
-      }
-    }
-    type();
+  // If HTML content exists, render instantly
+  if (text.includes('<img')) {
+    container.innerHTML = text;
+    return;
   }
+
+  container.innerHTML = '';
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      container.innerHTML += text[i];
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
+}
 
   function openIam(id) {
     const postsContainer = document.getElementById("iam");
@@ -267,19 +275,16 @@ Here’s a glimpse of my work...:
   window.addEventListener("hashchange", openFromHash);
 
   function copyPostLink(id) {
-    const url = `${window.location.origin}$
-    {window.location.pathname}#${id}`;
+  const url = `${window.location.origin}${window.location.pathname}#${id}`;
+  navigator.clipboard.writeText(url);
 
-    navigator.clipboard.writeText(url);
-
-    const terminal = document.getElementById("posts");
-
-    terminal.insertAdjacentHTML("beforeend", `
-       <div class="line output">
-         Link copied 
-       </div>
-    `);
-  }
+  const terminal = document.getElementById("posts");
+  terminal.insertAdjacentHTML("beforeend", `
+    <div class="line output">
+      Link copied ✔
+    </div>
+  `);
+}
   
 </script>
 
