@@ -70,6 +70,14 @@
     a:hover {
       border-bottom-color: #fff;
     }
+
+    .file {
+      opacity: 0.85;
+    }
+
+    .file:hover {
+      opacity: 1;
+    }
     
   </style>
 </head>
@@ -237,7 +245,11 @@ Here’s a glimpse of my work...:
       <div class="line output" id="typing-output"></div>
 
       <div class="line output" style="margin-top:12px;">
-        <span class="file" onclick="copyPostLink('${id}')">[ copy link ]</span>
+         <span class="file" onclick="openPost('${id}')">[ open ]</span>
+  &nbsp;
+         <span class="file" onclick="copyPostLink('${id}')">[ copy ]</span>
+  &nbsp;
+         <span class="file" onclick="sharePost('${id}')">[ share ]</span>
       </div>
     `;
     // Run typing animation
@@ -277,11 +289,29 @@ Here’s a glimpse of my work...:
   function copyPostLink(id) {
   const url = `${window.location.origin}${window.location.pathname}#${id}`;
   navigator.clipboard.writeText(url);
+  logToTerminal("Link copied ✔");
+}
 
+  function sharePost(id) {
+  const url = `${window.location.origin}${window.location.pathname}#${id}`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: "Kiya — Terminal",
+      text: "Check out this post",
+      url: url
+    });
+  } else {
+    navigator.clipboard.writeText(url);
+    logToTerminal("Share not supported. Link copied instead.");
+  }
+}
+
+  function logToTerminal(message) {
   const terminal = document.getElementById("posts");
   terminal.insertAdjacentHTML("beforeend", `
     <div class="line output">
-      Link copied ✔
+      ${message}
     </div>
   `);
 }
