@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kiya — Plus(+)</title>
+  <title>Kiya — Terminal</title>
 
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -216,6 +216,9 @@ Here’s a glimpse of my work...:
     typeText(output, iam[id]);
   }
   function openPost(id) {
+    // update URL
+    window.location.hash = id;
+    
     const postsContainer = document.getElementById("posts");
     // Add command line first
     postsContainer.innerHTML = `
@@ -224,6 +227,10 @@ Here’s a glimpse of my work...:
         <span class="cmd">Plus(+) ${id}.txt</span>
       </div>
       <div class="line output" id="typing-output"></div>
+
+      <div class="line output" style="margin-top:12px;">
+        <span class="file" onclick="copyPostLink('$ {id}')">[ copy link ]</span>
+      </div>
     `;
     // Run typing animation
     const output = document.getElementById("typing-output");
@@ -247,6 +254,31 @@ Here’s a glimpse of my work...:
     }
   }
   type();
+  }
+
+  function openFromHash() {
+    const id = window.location.hash.replace("#", "");
+    if (posts[id]) {
+      openPost(id);
+    }
+  }
+
+  window.addEventListener("load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+
+  function copyPostLink(id) {
+    const url = `$ {window.location.origim}$
+    {window.location.pathname}#${id}`;
+
+    navigator.clipboard.writeText(url);
+
+    const terminal = document.getElementById("posts");
+
+    terminal.insertAdjecentHTML("beforeend", `
+       <div class="line output">
+         Link copied 
+       </div>
+    `);
   }
   
 </script>
